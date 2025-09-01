@@ -365,6 +365,7 @@
       #no-btn {
         position: absolute;
         transition: all 0.3s ease;
+        touch-action: manipulation; /* Ensure touch events are handled properly */
       }
       .final-message {
         position: fixed;
@@ -896,13 +897,12 @@
 
         // Move the "Nggak" button on hover, click, and touch events for mobile compatibility
         noBtn.addEventListener("mouseover", () => moveButton(noBtn));
-        noBtn.addEventListener("click", () => moveButton(noBtn));
-        noBtn.addEventListener("touchstart", (e) => {
-          e.preventDefault(); // Prevent default touch behavior
+        noBtn.addEventListener("click", (e) => {
+          e.preventDefault();
           moveButton(noBtn);
         });
-        noBtn.addEventListener("touchend", (e) => {
-          e.preventDefault();
+        noBtn.addEventListener("touchstart", (e) => {
+          e.preventDefault(); // Prevent default touch behavior
           moveButton(noBtn);
         });
 
