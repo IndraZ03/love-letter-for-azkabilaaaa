@@ -894,9 +894,17 @@
           }
         }
 
-        // Move the "Nggak" button on hover and click
+        // Move the "Nggak" button on hover, click, and touch events for mobile compatibility
         noBtn.addEventListener("mouseover", () => moveButton(noBtn));
         noBtn.addEventListener("click", () => moveButton(noBtn));
+        noBtn.addEventListener("touchstart", (e) => {
+          e.preventDefault(); // Prevent default touch behavior
+          moveButton(noBtn);
+        });
+        noBtn.addEventListener("touchend", (e) => {
+          e.preventDefault();
+          moveButton(noBtn);
+        });
 
         yesBtn.addEventListener("click", () => {
           secondQuestionPopup.classList.add("visible");
