@@ -366,6 +366,8 @@
         position: absolute;
         transition: all 0.3s ease;
         touch-action: manipulation; /* Ensure touch events are handled properly */
+        -webkit-user-select: none; /* Prevent text selection on touch */
+        user-select: none;
       }
       .final-message {
         position: fixed;
@@ -385,6 +387,12 @@
       .final-message.visible {
         opacity: 1;
         pointer-events: auto;
+      }
+
+      /* Ensure button container has proper positioning context for mobile */
+      #button-container {
+        position: relative;
+        overflow: visible; /* Ensure buttons can move freely */
       }
     </style>
   </head>
@@ -899,11 +907,33 @@
         noBtn.addEventListener("mouseover", () => moveButton(noBtn));
         noBtn.addEventListener("click", (e) => {
           e.preventDefault();
+          e.stopPropagation(); // Stop any parent event handling
           moveButton(noBtn);
         });
         noBtn.addEventListener("touchstart", (e) => {
-          e.preventDefault(); // Prevent default touch behavior
+          e.preventDefault();
+          e.stopPropagation();
           moveButton(noBtn);
+        });
+        noBtn.addEventListener("touchmove", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          moveButton(noBtn);
+        });
+
+        // Fallback to move button on any touch interaction near it
+        document.getElementById("button-container").addEventListener("touchstart", (e) => {
+          const touch = e.touches[0];
+          const btnRect = noBtn.getBoundingClientRect();
+          if (
+            touch.clientX >= btnRect.left - 20 &&
+            touch.clientX <= btnRect.right + 20 &&
+            touch.clientY >= btnRect.top - 20 &&
+            touch.clientY <= btnRect.bottom + 20
+          ) {
+            e.preventDefault();
+            moveButton(noBtn);
+          }
         });
 
         yesBtn.addEventListener("click", () => {
