@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Love Letter For You</title>
+
+    <!-- Tailwind CSS for styling and responsiveness -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts for a romantic feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Define custom fonts from Google Fonts */
+      .font-cursive {
+        font-family: "Great Vibes", cursive;
+      }
+      .font-serif-elegant {
+        font-family: "Cormorant Garamond", serif;
+      }
+
+      /* General Body Styling with enhanced romantic vibe */
+      body {
+        background: linear-gradient(135deg, #ffdde1, #ee9ca7, #ffdde1, #f8b7d2);
+        background-size: 500% 500%;
+        animation: gradientShift 25s ease infinite;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* Gradient background animation */
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Heart pulse animation for romantic effect */
+      @keyframes pulseHeart {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .animate-pulse-heart {
+        animation: pulseHeart 2s ease-in-out infinite;
+      }
+
+      /* New styles for floating text and image */
+      .animate-float-text {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      .animate-float-image {
+        animation: floatImage 4s ease-in-out infinite;
+      }
+
+      @keyframes floatImage {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      .animate-float-heart {
+        animation: floatHeart 3s ease-in-out infinite;
+      }
+
+      @keyframes floatHeart {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      /* Romantic sparkle effect */
+      .sparkle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        animation: sparkle 1.5s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      @keyframes sparkle {
+        0% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.5);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0);
+        }
+      }
+
+      /* Interactive cursor heart trail */
+      .heart-trail {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        color: #e91e63;
+        opacity: 0;
+        animation: fadeOut 1s ease-out forwards;
+        pointer-events: none;
+        z-index: 1000;
+      }
+
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0.3);
+        }
+      }
+
+      /* Enhanced petal animation with more romance */
+      .petal {
+        position: absolute;
+        top: -20px;
+        background-color: rgba(255, 182, 193, 0.7);
+        border-radius: 50% 0;
+        opacity: 0.8;
+        animation: fall linear infinite, sway ease-in-out infinite alternate;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(105vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes sway {
+        0% {
+          transform: translateX(-20px);
+        }
+        100% {
+          transform: translateX(20px);
+        }
+      }
+
+      /* --- Envelope Animation Styles --- */
+      .envelope-wrapper {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 50;
+        transition: opacity 1s 1s ease-out;
+        pointer-events: none; /* Allows scrolling through the wrapper */
+      }
+      .envelope-wrapper.opened {
+        opacity: 0;
+      }
+      .envelope {
+        position: relative;
+        width: 320px;
+        height: 200px;
+        background-color: #f7e4e4;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        transform-style: preserve-3d;
+      }
+      .envelope.open {
+        transform: translateY(200px) rotateX(180deg) scale(2);
+      }
+      .envelope-back {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #f7e4e4;
+        border-radius: 8px;
+        z-index: 1;
+      }
+      .envelope-flap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #f7e4e4;
+        transform-origin: top;
+        transition: transform 1.5s 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        z-index: 3;
+        clip-path: polygon(0 0, 100% 0, 50% 50%);
+      }
+      .envelope.open .envelope-flap {
+        transform: rotateX(180deg);
+      }
+      .letter {
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        width: 300px;
+        height: 180px;
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 1.5s 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+          box-shadow 1s 1s ease;
+        transform: translateY(0);
+        z-index: 2;
+      }
+      .envelope.open .letter {
+        transform: translateY(-220px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+      .heart-seal {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        background-color: #e91e63;
+        z-index: 4;
+        clip-path: polygon(50% 100%, 0 45%, 0 0, 100% 0, 100% 45%);
+        transition: opacity 0.5s ease;
+      }
+      .envelope.open .heart-seal {
+        opacity: 0;
+      }
+
+      /* Main content container */
+      .main-content {
+        padding-top: 100vh; /* Pushes content below the initial envelope view */
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Scroll-triggered animations for letter content */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 1.5s cubic-bezier(0.165, 0.84, 0.44, 1),
+          transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal:nth-child(2) {
+        transition-delay: 0.2s;
+      }
+      .reveal:nth-child(3) {
+        transition-delay: 0.4s;
+      }
+      .reveal:nth-child(4) {
+        transition-delay: 0.6s;
+      }
+      .reveal:nth-child(5) {
+        transition-delay: 0.8s;
+      }
+
+      /* Interactive heart icon on hover */
+      .interactive-heart {
+        transition: transform 0.3s ease, color 0.3s ease;
+      }
+      .letter-section:hover .interactive-heart {
+        transform: scale(1.5);
+        color: #e91e63;
+      }
+
+      /* --- Falling Petals Background --- */
+      #petal-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .petal {
+        position: absolute;
+        top: -20px;
+        background-color: rgba(255, 182, 193, 0.7);
+        border-radius: 50% 0;
+        opacity: 0.8;
+        animation: fall linear infinite, sway ease-in-out infinite alternate;
+      }
+      @keyframes fall {
+        to {
+          transform: translateY(105vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes sway {
+        0% {
+          transform: translateX(-20px);
+        }
+        100% {
+          transform: translateX(20px);
+        }
+      }
+
+      /* --- Interactive Question Styles --- */
+      .question-section {
+        text-align: center;
+        padding: 4rem 1rem;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+      #no-btn {
+        position: absolute;
+        transition: all 0.3s ease;
+      }
+      .final-message {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s ease;
+      }
+      .final-message.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    </style>
+  </head>
+  <body class="text-gray-800 font-serif-elegant">
+    <!-- Background Music -->
+    <audio id="background-music" loop>
+      <source
+        src="https://audio.jukehost.co.uk/R67I2v2Ic2jOb8OVfTqC0HrMfO35yAsn"
+        type="audio/mpeg"
+      />
+      Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <!-- Container for falling petals effect -->
+    <div id="petal-container"></div>
+
+    <!-- Envelope Opening Animation -->
+    <div id="envelope-wrapper" class="envelope-wrapper">
+      <div id="envelope" class="envelope">
+        <div class="envelope-back"></div>
+        <div class="letter">
+          <div class="p-4 text-center">
+            <div class="font- cursive text-3xl text-pink-500">For Azka</div>
+          </div>
+        </div>
+        <div class="envelope-flap"></div>
+        <div class="heart-seal"></div>
+      </div>
+    </div>
+
+    <!-- Main Content Revealed by Scrolling -->
+    <div class="main-content">
+      <!-- Spacer to ensure content starts smoothly after animation -->
+      <div class="h-24 md:h-48"></div>
+
+      <!-- The Love Letter -->
+      <section
+        class="container mx-auto px-6 py-16 max-w-3xl bg-white/70 backdrop-blur-sm rounded-2xl shadow-2xl"
+      >
+        <div class="text-center mb-12 reveal">
+          <!-- CUSTOMIZE: Replace [Girlfriend's Name] -->
+          <h1 class="font-cursive text-6xl md:text-8xl text-pink-600">
+            Untuk cantikkkuuu <br />
+            Salsabila Azka
+          </h1>
+        </div>
+
+        <!-- Letter paragraphs will fade in on scroll -->
+        <div
+          class="letter-section space-y-8 text-xl md:text-2xl text-gray-700 leading-relaxed"
+        >
+          <p class="reveal">
+            <!-- CUSTOMIZE: Replace this with your own letter content -->
+            sayangggkuuuu azka cantikkkkk,
+          </p>
+          <p class="reveal">
+            <!-- CUSTOMIZE: Replace this with your own letter content -->
+            Maaf agak telattt tapi aku baru sempet bikin love letter di bulan
+            agustus. waktunya aku bikin love letter buattt kamuuuuuuuu
+            hehehehehehehehehe. gaada hari libur buat bucinin kamuuuuu.
+            Makasiiiii buat cinta kamuu ke aku sampai hari ini aku ngerasa
+            sangatt dicintai sama orang yang paling aku cintai
+            jugaaaaa😍😍😍😍😍
+          </p>
+          <p class="reveal">
+            <!-- CUSTOMIZE: Replace this with your own letter content -->
+            Aku mau rekap apa aja perjalanan kita di agustus. Bulan ini banyak
+            bgt tantangan buat kita. awal2 agustus jujur aku super sedih kamu
+            minta break. aku bener2 gabisa lost contact dari kamuu sayangggg.
+            plisss tolonggg kamu ngambek ke aku gapapaaa tapi jangan ngilang
+            dari aku yaaa. aku sayang kamu bangetttttt. aku bakal usahain terus
+            kita bisa rutin ketemu. terussss.....(nada gemas kamu) aku juga
+            makasih bangetttt🥹🥹🥹🥹🥹🥹 ini first time aku dikirimin buketttt, kamu
+            kasi sidang ke akuu🥹🥹 semuanya barang baguss. aku suka bangetttt.
+            kamu bener2 layak buat diusahain. jadi sedih kalo mikir kamu ditreat
+            seburuk itu sama mantan kamuu padahal kamu baikkk dan cantikkk
+            bangetttttttttt.
+          </p>
+          <p class="reveal">
+            <!-- CUSTOMIZE: Replace this with your own letter content -->
+            sayanggggg, aku tau jalan buat kita ketemu bulan ini tuh ga
+            gampanggg. tapi aku merasa disayangg bangett sama kamuuu🥹🥹🥹🫶🫶🫶 kamu
+            cewe cantik dan gak gengsi buat effort🥹🫶. dari nyariin aku kos di
+            pwj sampe ujan ujan jemput aku di stasiun. aku bener bener terharu
+            punya cewe sebaik ini.
+          </p>
+          <p class="reveal">
+            <!-- CUSTOMIZE: Replace this with your own letter content -->
+            kamu first kiss akuuu. jujur waktu kita tatap tatapan, kamu bener
+            bener cantikkk bangettt gak boong cantik parahhh. aku gabisa
+            malingkan muka. rasanya jadi pengen cium bibir kamuuu. dan akhirnyaa
+            kita tiumannn bibirr. aku juga gatau caranya kiss bibir. tapi
+            rasanya waktu ciuman bibir sama kamu. rasanya full of love. aku
+            merasa disayang sayanggg banget sama kamu❤❤❤❤. aku pengen jadi orang
+            yang pertama sama terakhir yang kiss sama kamu. tolong jangan
+            tinggalin aku ya selagi aku ga nyakitin kamu.
+          </p>
+          <p class="reveal">
+            <!-- CUSTOMIZE: Replace this with your own letter content -->
+            Bulan agustus sama september awal jadi bulan terbaik bagi aku
+            soalnya aku bisa ketemu kamu lamaaaaaaaaaaaaaaa bgt. walaupunn aku
+            pengen lebih lama lagi. Aku suka anter jemput kamuu. aku suka kamu
+            ketawa ketawa sama celetukan aku sama candaan aku. aku suka kamu
+            ngambek waktu aku becandain. aku sukaaa nemenin kamu belajar. aku
+            suka mijetin tangan kamuu. aku sukaa pegang tangan kamu waktu
+            boncengan. aku sukaaaa makan bareng kamuu nyuapin kamuu. aku sukaa
+            semuanyaaa. aku suka bangettt sama kamuuu. sukaaa bangetttt. aku
+            gatau kalo sampe kita gajadi. tolongg kalo aku kurang sesuatu selalu
+            bilang yaaa. nanti aku usahainn. aku gamau ditinggalin kamu. jujur
+            kadang aku mikir takut kamu bosen sama aku. kamu ninggalin aku.
+            tolong kasi tau kalo aku kurang sesuatu yaaaa.
+          </p>
+          <p class="reveal">
+            <!-- CUSTOMIZE: Replace this with your own letter content -->
+            Aku seneng bisa makan bareng terus sama kamu. nyobain makanan2 enak
+            di jogja sama kamu. makasih udah mau ngobatin kangen akuu. makasih
+            uda mau gandengan sama akuu. jujur kalo bahas kangen aku kepikiran
+            waktu kamu minta break. aku juga sekangen itu sama kamu. waktu kita
+            bisa ketemu aku selalu ngusahain buatt selama mungkin sama kamuu.
+            tapi sebenernya aku bener2 mau cerita ini mungkin belum aku ceritain
+            dari kemarin. aku sebenernya takut ditinggalin kamu kalo mungkin
+            amit2 suatu waktu aku gabisa nemuin kamu. soalnya kemarin waktu kita
+            gaketemu lama kamu minta break:( tapi aku bakal kerja keras kok biar
+            bisa nemuinn kamu teruss. aku pastiin aku itu lebihhh kangennnn sama
+            kamuuuu.
+          </p>
+          <p class="reveal">
+            <!-- CUSTOMIZE: Replace this with your own letter content -->
+            Sayangggg mungkin ituuuu love letter dari akuu di bulan agustussss.
+            akhirnya aku bisa ceritaaa soal rasa takut akuu lewat love letter
+            iniii. mungkin kalo ngomong langsung aku gasanggup. mungkin juga aku
+            tadi cemburu soal kamu langsung liat ke dzaki waktu buka galeri atau
+            kamu nolak aku pegang tangan waktu boncengan itu juga bentuk rasa
+            takut aku. maaf karena waktu itu emang sebenernya aku kesel beneran.
+          </p>
+
+          <p class="reveal">
+            <!-- CUSTOMIZE: Replace this with your own letter content -->
+            Makasih buatt semuanyaaa selama inii. semoga cinta kitaaa makin
+            tumbuhhh. gaada jaminan semuanya lancar tapi semoga kita sama sama
+            bisa saling nguatin. aku sayang kamu. kamu sayang aku. selalu inget
+            kita bisa ngelewatin sulitnya ketemu di bulan agustus ini🫶🫶🫶🫶🫶🫶❤❤❤❤❤
+          </p>
+
+          <div class="reveal flex items-center justify-center pt-8">
+            <svg
+              class="interactive-heart w-10 h-10 text-pink-300"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <p
+            class="reveal text-center font-cursive text-4xl pt-8 text-pink-500"
+          >
+            <!-- CUSTOMIZE: Replace with your name -->
+            Calon Suami kamu,<br />
+            Indra
+          </p>
+        </div>
+      </section>
+
+      <!-- Spacer with increased height -->
+      <div class="h-24 md:h-48"></div>
+
+      <!-- Photo Gallery Title -->
+      <section class="text-center px-4">
+        <h2
+          class="font-cursive text-5xl md:text-7xl text-white text-shadow-lg reveal"
+        >
+          Foto-foto Ngedate Kitaaaa
+        </h2>
+        <p class="text-xl text-white/80 mt-4 reveal">
+          Cuma ini yang ada di hp aku wkwkw
+        </p>
+      </section>
+
+      <!-- Spacer -->
+      <div class="h-16"></div>
+
+      <!-- Photo Gallery Grid -->
+      <section class=" container mx-auto px-4 md:px-8 reveal">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <!-- CUSTOMIZE: Ganti src gambar dan keterangan di bawah -->
+
+          <!-- Gambar 1 -->
+          <div
+            class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square reveal"
+          >
+            <img
+              src="1.jpg"
+              alt="Momen romantis 1"
+              class="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4"
+            >
+              <p
+                class="text-white font-serif-elegant text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
+              >
+                Masak samyang bareng full tium.
+              </p>
+            </div>
+          </div>
+
+          <!-- Gambar 2 -->
+          <div
+            class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square reveal"
+            style="transition-delay: 100ms"
+          >
+            <img
+              src="3.jpg"
+              alt="Momen romantis 2"
+              class="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4"
+            >
+              <p
+                class="text-white font-serif-elegant text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
+              >
+                ZOO DATE HEHE(hewan apa yang paling kaya?).
+              </p>
+            </div>
+          </div>
+
+          <!-- Gambar 3 -->
+          <div
+            class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square reveal"
+            style="transition-delay: 200ms"
+          >
+            <img
+              src="2.jpg"
+              alt="Momen romantis 3"
+              class="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4"
+            >
+              <p
+                class="text-white font-serif-elegant text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
+              >
+                Gacoan date bersama dek koas
+              </p>
+            </div>
+          </div>
+        </div>
+
+         
+        </div>
+      </section>
+
+      <section class=" mt-5 container mx-auto px-4 md:px-8 reveal">
+        <div class="flex justify-center">
+          <!-- Gambar 5 -->
+          <div
+            class="group relative overflow-hidden rounded-2xl shadow-lg aspect-square reveal w-full max-w-sm md:max-w-md"
+          >
+            <img
+              src="5.jpg"
+              alt="Momen romantis 1"
+              class="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4"
+            >
+              <p
+                class="text-white font-serif-elegant text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
+              >
+                PHOTOBOX PALING GONG.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Spacer with even more height -->
+      <div class="h-32 md:h-64"></div>
+
+      <!-- Most Beautiful Girl Section -->
+      <section class="text-center px-4 reveal">
+        <h2 class="font-cursive text-5xl md:text-7xl text-white text-shadow-lg reveal animate-float-text">Foto Cewe Paling Cantik di Alam Semesta Ini</h2>
+        <div class="flex justify-center mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+          <svg class="w-12 h-12 text-pink-400 animate-pulse-heart" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Spacer -->
+      <div class="h-16"></div>
+
+      <section class="container mx-auto px-4 md:px-8 reveal">
+          <!-- CUSTOMIZE: Ganti src gambar di bawah dengan foto cewemu -->
+          <div class="max-w-xl mx-auto bg-white/20 backdrop-blur-sm p-4 rounded-2xl shadow-2xl relative overflow-hidden group animate-float-image">
+              <img src="4.jpg" alt="Foto perempuan paling cantik" class="w-full h-full object-cover rounded-xl shadow-lg transition-transform duration-700 ease-in-out group-hover:scale-110 border-4 border-pink-200/50">
+              <!-- Romantic heart overlay animation -->
+              <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out flex justify-center items-center pointer-events-none">
+                  <div class="heart-overlay w-24 h-24 text-pink-400 animate-pulse-heart">
+                      <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                      </svg>
+                  </div>
+                  <!-- Additional floating hearts -->
+                  <div class="absolute top-4 left-4 w-12 h-12 text-pink-300 animate-float-heart delay-100">
+                      <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                      </svg>
+                  </div>
+                  <div class="absolute bottom-4 right-4 w-16 h-16 text-pink-300 animate-float-heart delay-300">
+                      <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                      </svg>
+                  </div>
+                  <div class="absolute top-1/3 right-8 w-10 h-10 text-pink-200 animate-float-heart delay-500">
+                      <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                      </svg>
+                  </div>
+                  <div class="absolute bottom-1/3 left-8 w-14 h-14 text-pink-200 animate-float-heart delay-700">
+                      <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                      </svg>
+                  </div>
+              </div>
+              <!-- Romantic glow effect -->
+              <div class="absolute -inset-4 bg-gradient-to-r from-pink-100/30 to-pink-200/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
+          </div>
+      </section>
+
+      <!-- Spacer -->
+      <div class="h-32"></div>
+
+      <!-- Interactive Question Section -->
+      <section class="container mx-auto px-4 md:px-8 reveal">
+        <div class="question-section">
+          <h2 class="font-cursive text-5xl md:text-7xl text-pink-600 mb-8">
+            Waktunya Kuizzzzzzzzzz
+          </h2>
+          <p class="text-xl md:text-2xl text-gray-700 mb-12">
+            Masih mau stay sama aku terus nggak?
+          </p>
+          <div
+            id="button-container"
+            class="relative flex justify-center items-center gap-8 h-24"
+          >
+            <button
+              id="yes-btn"
+              class="bg-pink-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
+            >
+              Mauuuu bgt plis plis plissss
+            </button>
+            <button
+              id="no-btn"
+              class="bg-gray-300 text-gray-700 font-bold py-3 px-8 rounded-full shadow-lg"
+            >
+              Gamaukk
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer Spacer -->
+      <div class="h-32"></div>
+    </div>
+
+    <!-- Second Question Popup -->
+    <div id="second-question-popup" class="final-message">
+      <div
+        class="bg-white p-8 rounded-2xl shadow-2xl text-center max-w-sm mx-4 transform scale-90 transition-transform duration-500"
+      >
+        <h3 class="font-cursive text-5xl md:text-6xl text-pink-500 mb-8">
+          Sampe kapanpun yaaaaaaa?
+        </h3>
+        <div
+          id="second-button-container"
+          class="relative flex justify-center items-center h-24"
+        >
+          <button
+            id="iyaaaa-btn"
+            class="bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-110 transition-transform duration-300"
+          >
+            Iyaaaa Cayangggggg
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const envelope = document.getElementById("envelope");
+        const envelopeWrapper = document.getElementById("envelope-wrapper");
+        const backgroundMusic = document.getElementById("background-music");
+        let isEnvelopeOpened = false;
+        let isMusicPlaying = false;
+
+        // Function to open the envelope
+        function openEnvelope() {
+          if (isEnvelopeOpened) return;
+          isEnvelopeOpened = true;
+          envelope.classList.add("open");
+          envelopeWrapper.classList.add("opened");
+
+          // Play music if it hasn't started yet
+          if (!isMusicPlaying) {
+            backgroundMusic
+              .play()
+              .then(() => {
+                isMusicPlaying = true;
+              })
+              .catch((error) => {
+                console.log(
+                  "Autoplay Gagal, menunggu interaksi pengguna: ",
+                  error
+                );
+              });
+          }
+
+          // Remove the event listeners after opening
+          window.removeEventListener("scroll", openEnvelope);
+          envelope.removeEventListener("click", openEnvelope);
+        }
+
+        // Open envelope on first scroll or click
+        window.addEventListener("scroll", openEnvelope, { once: true });
+        envelope.addEventListener("click", openEnvelope, { once: true });
+
+        // Automatically open after a short delay if no interaction
+        setTimeout(openEnvelope, 2000);
+
+        // Intersection Observer for scroll-triggered animations
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+              }
+            });
+          },
+          {
+            threshold: 0.1, // Trigger when 10% of the element is visible
+          }
+        );
+
+        const revealElements = document.querySelectorAll(".reveal");
+        revealElements.forEach((el) => observer.observe(el));
+
+        // --- Interactive Question Logic ---
+        const noBtn = document.getElementById("no-btn");
+        const yesBtn = document.getElementById("yes-btn");
+
+        const secondQuestionPopup = document.getElementById(
+          "second-question-popup"
+        );
+        const iyaaaaBtn = document.getElementById("iyaaaa-btn");
+
+        function moveButton(btn) {
+          const container = btn.parentElement;
+          if (!container) return;
+          const containerRect = container.getBoundingClientRect();
+          const btnRect = btn.getBoundingClientRect();
+          const otherBtn = document.getElementById("yes-btn");
+          if (!otherBtn) return;
+
+          let newTop, newLeft;
+          let isOverlapping = false;
+          let attempts = 0; // To prevent infinite loops
+
+          const otherBtnRect = otherBtn.getBoundingClientRect();
+
+          do {
+            attempts++;
+            newTop = Math.random() * (containerRect.height - btnRect.height);
+            newLeft = Math.random() * (containerRect.width - btnRect.width);
+
+            // Calculate future position relative to viewport
+            const btnFutureRect = {
+              left: newLeft + containerRect.left,
+              top: newTop + containerRect.top,
+              right: newLeft + containerRect.left + btnRect.width,
+              bottom: newTop + containerRect.top + btnRect.height,
+            };
+
+            // AABB collision detection with a margin
+            const margin = 15;
+            if (
+              btnFutureRect.left < otherBtnRect.right + margin &&
+              btnFutureRect.right > otherBtnRect.left - margin &&
+              btnFutureRect.top < otherBtnRect.bottom + margin &&
+              btnFutureRect.bottom > otherBtnRect.top - margin
+            ) {
+              isOverlapping = true;
+            } else {
+              isOverlapping = false;
+            }
+          } while (isOverlapping && attempts < 100);
+
+          // Apply new position if a valid one was found
+          if (!isOverlapping) {
+            btn.style.top = `${newTop}px`;
+            btn.style.left = `${newLeft}px`;
+          }
+        }
+
+        // Move the "Nggak" button on hover and click
+        noBtn.addEventListener("mouseover", () => moveButton(noBtn));
+        noBtn.addEventListener("click", () => moveButton(noBtn));
+
+        yesBtn.addEventListener("click", () => {
+          secondQuestionPopup.classList.add("visible");
+          setTimeout(() => {
+            secondQuestionPopup.querySelector("div").style.transform =
+              "scale(1)";
+          }, 10);
+        });
+
+        // "Iyaaaa." button redirects to WhatsApp
+        iyaaaaBtn.addEventListener("click", () => {
+          const phoneNumber = "6289666444301";
+          const message = "Aku Sayang Kamu";
+          const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+            message
+          )}`;
+          window.open(whatsappUrl, "_blank");
+        });
+
+        // Function to create falling petals in the background
+        function createPetals() {
+          const container = document.getElementById("petal-container");
+          const petalCount = 30;
+          for (let i = 0; i < petalCount; i++) {
+            const petal = document.createElement("div");
+            petal.classList.add("petal");
+
+            const size = Math.random() * 15 + 10;
+            petal.style.width = `${size}px`;
+            petal.style.height = `${size}px`;
+
+            petal.style.left = `${Math.random() * 100}vw`;
+            petal.style.animationDuration = `${Math.random() * 10 + 10}s`; // 10-20 seconds
+            petal.style.animationDelay = `${Math.random() * 15}s`;
+
+            container.appendChild(petal);
+          }
+        }
+        createPetals();
+
+        // Function to create random sparkles across the page for romantic effect
+        function createSparkles() {
+          const sparkleCount = 50;
+          for (let i = 0; i < sparkleCount; i++) {
+            const sparkle = document.createElement("div");
+            sparkle.classList.add("sparkle");
+
+            // Random position
+            sparkle.style.left = `${Math.random() * 100}vw`;
+            sparkle.style.top = `${Math.random() * 100}vh`;
+
+            // Random animation duration and delay
+            sparkle.style.animationDuration = `${Math.random() * 2 + 1.5}s`;
+            sparkle.style.animationDelay = `${Math.random() * 5}s`;
+
+            document.body.appendChild(sparkle);
+          }
+        }
+        createSparkles();
+
+        // Function to create heart trail following cursor
+        document.addEventListener("mousemove", (e) => {
+          // Create a heart element
+          const heart = document.createElement("div");
+          heart.classList.add("heart-trail");
+          heart.innerHTML = `<svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>`;
+
+          // Position at cursor
+          heart.style.left = `${e.clientX - 10}px`;
+          heart.style.top = `${e.clientY - 10}px`;
+
+          document.body.appendChild(heart);
+
+          // Remove after animation completes
+          setTimeout(() => heart.remove(), 1000);
+        });
+      });
+    </script>
+  </body>
+</html>
